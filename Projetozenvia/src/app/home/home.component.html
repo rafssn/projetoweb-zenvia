@@ -1,0 +1,23 @@
+<div class="container d-flex justify-content-center">
+  <h2 class="text-center" style="text-align: center;">Clientes</h2>
+  <table class="tabela">
+    <thead class="tabela__cabecalho">
+      <th class="tabela__cabecalho__conteudo">Id</th>
+      <th class="tabela__cabecalho__conteudo">Nome</th>
+      <th class="tabela__cabecalho__conteudo">Cpf</th>
+      <th class="tabela__cabecalho__conteudo">Nascimento</th>
+    </thead>
+    <tbody *ngIf="customers.Customers.length > 0; else listaVazia">
+      <tr class="tabela__linha" *ngFor="let item of customers.Customers">
+        <td class="tabela__conteudo">{{ item?.Id }}</td>
+        <td class="tabela__conteudo">{{ item?.Name }}</td>
+        <td class="tabela__conteudo">{{ item?.Cpf }}</td>
+        <td class="tabela__conteudo">{{ item?.Birthdate | date: "short"  }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #listaVazia>
+  <p>Nenhum cliente encontrado</p>
+</ng-template>

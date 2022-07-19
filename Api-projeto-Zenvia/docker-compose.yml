@@ -1,0 +1,35 @@
+﻿version: '3.4'
+volumes:
+  projetozenviavolume:
+
+networks:
+  sqlNET:
+
+services:
+  projetozenvia:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "5000:80"
+    container_name: "api_zenvia"
+    networks:
+      - sqlNET
+    depends_on:
+      - db
+
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: "db_zenvia"
+    user: root
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Projeto@123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - projetozenviavolume:/var/lib/sql
+    networks:
+      - sqlNET

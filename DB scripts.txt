@@ -1,0 +1,41 @@
+CREATE TABLE [Customer]
+(
+	[Id] BIGINT IDENTITY (1, 1) NOT NULL,
+	[Name] VARCHAR(150) NOT NULL,
+	[Cpf] NVARCHAR(11) NOT NULL,
+	[Rg] NVARCHAR(7) NOT NULL,
+	[Facebook] NVARCHAR(500) NULL,
+	[Twitter] NVARCHAR(500) NULL,
+	[Instagram] NVARCHAR(500) NULL,
+	[LinkedIn] NVARCHAR(500) NULL,
+	[Birthdate] DATETIME NOT NULL,
+	[CreatedDate] DATETIME NULL,
+	
+	CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED ([Id] ASC)
+
+)
+
+CREATE TABLE [Address]
+(
+	[Id] BIGINT IDENTITY (1, 1) NOT NULL,
+	[CustomerId] BIGINT NOT NULL,
+	[AddressName] VARCHAR(150) NOT NULL,
+	[Street] VARCHAR(150) NOT NULL,
+	[Complement] VARCHAR(150) NULL,
+	[Number] INT NULL
+	
+	CONSTRAINT FK_Customer_Address 		Foreign Key(CustomerId) 	REFERENCES dbo.Customer(Id)			ON DELETE CASCADE,
+	CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+
+CREATE TABLE [Telephone]
+(
+	[Id] BIGINT IDENTITY (1, 1) NOT NULL,
+	[CustomerId] BIGINT NOT NULL,
+	[PhoneName] VARCHAR(150) NOT NULL,
+	[AreaCode] VARCHAR(2) NOT NULL,
+	[PhoneNumber] VARCHAR(9) NOT NULL
+
+	CONSTRAINT FK_Customer_Telephone 		Foreign Key(CustomerId) 	REFERENCES dbo.Customer(Id)		ON DELETE CASCADE,
+	CONSTRAINT [PK_Telephone] PRIMARY KEY CLUSTERED ([Id] ASC)
+)
